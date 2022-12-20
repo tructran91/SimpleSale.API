@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SimpleSale.Core.Entities.Catalog;
 using SimpleSale.Core.Repositories;
 using SimpleSale.Infrastructure.Data;
 using System.Linq.Expressions;
@@ -13,10 +14,10 @@ namespace SimpleSale.Infrastructure.Repository
         public Repository(SimpleSaleDbContext dbContext)
         {
             _dbContext = dbContext;
-            _dbSet = _dbSet;
+            _dbSet = _dbContext.Set<T>();
         }
 
-        public async Task<IReadOnlyList<T>> GetAllAsync()
+        public async Task<List<T>> GetAllAsync()
         {
             return await _dbSet.AsNoTracking().ToListAsync();
         }

@@ -10,6 +10,12 @@ namespace SimpleSale.API
         {
             CreateMap<Product, ProductViewModel>().ReverseMap();
             CreateMap<Category, CategoryViewModel>().ReverseMap();
+
+            CreateMap<BrandViewModel, Brand>()
+                .ForMember(prop => prop.Id, opt => opt.MapFrom(o => Guid.NewGuid()))
+                .ForMember(prop => prop.IsDeleted, opt => opt.MapFrom(o => false))
+                .ForMember(prop => prop.CreatedOn, opt => opt.MapFrom(o => DateTime.UtcNow))
+                .AfterMap((src, dest) => dest.LatestUpdatedOn = dest.CreatedOn).ReverseMap();
         }
     }
 }

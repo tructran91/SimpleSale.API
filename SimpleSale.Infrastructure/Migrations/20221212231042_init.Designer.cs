@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleSale.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using SimpleSale.Infrastructure.Data;
 namespace SimpleSale.Infrastructure.Migrations
 {
     [DbContext(typeof(SimpleSaleDbContext))]
-    partial class SimpleSaleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221212231042_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

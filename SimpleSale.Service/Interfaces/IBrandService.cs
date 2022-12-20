@@ -1,4 +1,5 @@
-﻿using SimpleSale.Core.Entities.Catalog;
+﻿using SimpleSale.Application.DTOs;
+using SimpleSale.Core.Entities.Catalog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,11 @@ namespace SimpleSale.Application.Interfaces
 {
     public interface IBrandService
     {
-        Task Create(Brand brand);
+        Task<List<Brand>> GetBrands();
+
+        Task<Brand> GetBrand(BrandCriteriaDto dto);
+
+        Task<Brand> Create(Brand brand);
 
         Task Update(Brand brand);
 

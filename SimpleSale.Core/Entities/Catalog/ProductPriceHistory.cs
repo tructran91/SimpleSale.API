@@ -9,11 +9,6 @@ namespace SimpleSale.Core.Entities.Catalog
 {
     public class ProductPriceHistory : EntityBase
     {
-        public ProductPriceHistory()
-        {
-            CreatedOn = DateTime.Now;
-        }
-
         public Product Product { get; set; }
 
         public decimal? Price { get; set; }

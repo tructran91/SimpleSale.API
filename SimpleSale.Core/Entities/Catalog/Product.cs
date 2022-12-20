@@ -30,19 +30,19 @@ namespace SimpleSale.Core.Entities.Catalog
 
         public Media ThumbnailImage { get; set; }
 
-        public IList<ProductMedia> Medias { get; protected set; } = new List<ProductMedia>();
+        public IList<ProductMedia> Medias { get; set; } = new List<ProductMedia>();
 
-        public IList<ProductLink> ProductLinks { get; protected set; } = new List<ProductLink>();
+        //public IList<ProductLink> ProductLinks { get; set; } = new List<ProductLink>();
 
-        public IList<ProductLink> LinkedProductLinks { get; protected set; } = new List<ProductLink>();
+        //public IList<ProductLink> LinkedProductLinks { get; set; } = new List<ProductLink>();
 
-        public IList<ProductAttributeValue> AttributeValues { get; protected set; } = new List<ProductAttributeValue>();
+        public IList<ProductAttributeValue> AttributeValues { get; set; } = new List<ProductAttributeValue>();
 
-        public IList<ProductOptionValue> OptionValues { get; protected set; } = new List<ProductOptionValue>();
+        public IList<ProductOptionValue> OptionValues { get; set; } = new List<ProductOptionValue>();
 
-        public IList<ProductCategory> Categories { get; protected set; } = new List<ProductCategory>();
+        public IList<ProductCategory> Categories { get; set; } = new List<ProductCategory>();
 
-        public IList<ProductPriceHistory> PriceHistories { get; protected set; } = new List<ProductPriceHistory>();
+        public IList<ProductPriceHistory> PriceHistories { get; set; } = new List<ProductPriceHistory>();
 
         public long? BrandId { get; set; }
 

@@ -1,7 +1,10 @@
-﻿namespace SimpleSale.Core.Entities.Catalog
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SimpleSale.Core.Entities.Catalog
 {
     public class EntityBase
     {
+        [Required]
         public Guid Id { get; set; }
 
         public DateTime CreatedOn { get; set; }
