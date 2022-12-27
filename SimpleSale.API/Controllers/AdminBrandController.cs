@@ -7,6 +7,7 @@ using SimpleSale.Application.DTOs;
 using SimpleSale.Application.Interfaces;
 using SimpleSale.Application.Services;
 using SimpleSale.Core.Entities.Catalog;
+using System.Drawing.Drawing2D;
 using System.Net;
 
 namespace SimpleSale.API.Controllers
@@ -32,8 +33,9 @@ namespace SimpleSale.API.Controllers
             try
             {
                 var brands = await _brandService.GetBrands();
+                var brandsConverted = _mapper.Map<List<BrandViewModel>>(brands);
 
-                return Ok(brands);
+                return Ok(brandsConverted);
             }
             catch (Exception ex)
             {
@@ -52,7 +54,9 @@ namespace SimpleSale.API.Controllers
                     Id= id
                 });
 
-                return Ok(brand);
+                var brandConverted = _mapper.Map<BrandViewModel>(brand);
+
+                return Ok(brandConverted);
             }
             catch (Exception ex)
             {

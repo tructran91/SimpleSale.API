@@ -5,7 +5,7 @@ namespace SimpleSale.API.ViewModels
 {
     public class BrandViewModel
     {
-        public Guid Id { get; set; }
+        public string? Id { get; set; }
 
         [Required]
         [DisplayName("Name")]
