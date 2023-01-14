@@ -1,17 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SimpleSale.Core.Entities.Catalog
+﻿namespace SimpleSale.Core.Entities.Catalog
 {
     public class Category : Content
     {
+        public bool IncludeInMenu { get; set; }
+
         public int DisplayOrder { get; set; }
 
-        public long? ParentId { get; set; }
+        public Guid? ParentId { get; set; }
 
-        public Category Parent { get; set; }
+        public Category? Parent { get; set; }
 
         public IList<Category> Children { get; set; } = new List<Category>();
-
-        public Media ThumbnailImage { get; set; }
     }
 }

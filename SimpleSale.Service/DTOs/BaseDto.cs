@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SimpleSale.Core.Entities.Catalog
+﻿namespace SimpleSale.Application.DTOs
 {
-    public class EntityBase
+    public class BaseDto
     {
-        [Required]
         public Guid Id { get; set; }
 
         public DateTime CreatedOn { get; set; }

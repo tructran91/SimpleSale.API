@@ -1,23 +1,17 @@
-﻿using SimpleSale.Application.DTOs;
-using SimpleSale.Core.Entities.Catalog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SimpleSale.Core.Entities.Catalog;
 
 namespace SimpleSale.Application.Interfaces
 {
     public interface IBrandService
     {
-        Task<List<Brand>> GetBrands();
+        Task<List<Brand>> GetBrandsAsync();
 
-        Task<Brand> GetBrand(BrandCriteriaDto dto);
+        Task<Brand> GetBrandAsync(Guid id);
 
-        Task<Brand> Create(Brand brand);
+        Task<Brand> CreateAsync(Brand brand);
 
-        Task Update(Brand brand);
+        Task UpdateAsync(Brand brand);
 
-        Task Delete(Guid id);
+        Task DeleteAsync(Guid id);
     }
 }

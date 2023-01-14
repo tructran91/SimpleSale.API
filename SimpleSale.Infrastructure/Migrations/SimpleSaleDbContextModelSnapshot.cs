@@ -63,11 +63,13 @@ namespace SimpleSale.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IncludeInMenu")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -79,39 +81,28 @@ namespace SimpleSale.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("MetaDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MetaKeywords")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MetaTitle")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("ParentId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid>("ParentId1")
+                    b.Property<Guid?>("ParentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Slug")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ThumbnailImageId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ParentId1");
-
-                    b.HasIndex("ThumbnailImageId");
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Categories");
                 });
@@ -166,7 +157,6 @@ namespace SimpleSale.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DisplayOrder")
@@ -188,15 +178,12 @@ namespace SimpleSale.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("MetaDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MetaKeywords")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MetaTitle")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -555,19 +542,10 @@ namespace SimpleSale.Infrastructure.Migrations
                 {
                     b.HasOne("SimpleSale.Core.Entities.Catalog.Category", "Parent")
                         .WithMany("Children")
-                        .HasForeignKey("ParentId1")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SimpleSale.Core.Entities.Catalog.Media", "ThumbnailImage")
-                        .WithMany()
-                        .HasForeignKey("ThumbnailImageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Parent");
-
-                    b.Navigation("ThumbnailImage");
                 });
 
             modelBuilder.Entity("SimpleSale.Core.Entities.Catalog.Product", b =>

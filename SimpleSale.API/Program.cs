@@ -1,19 +1,7 @@
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using SimpleSale.API;
 using SimpleSale.API.Extensions;
 using SimpleSale.API.Filters;
-using SimpleSale.Application.Interfaces;
-using SimpleSale.Application.Services;
-using SimpleSale.Core.Interfaces;
-using SimpleSale.Core.Repositories;
 using SimpleSale.Infrastructure.Data;
-using SimpleSale.Infrastructure.Logging;
-using SimpleSale.Infrastructure.Repository;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -62,10 +50,10 @@ app.UseExceptionHandler(config =>
     });
 });
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var aspnetRunContext = scope.ServiceProvider.GetRequiredService<SimpleSaleDbContext>();
-//    SimpleSaleSeed.SeedAsync(aspnetRunContext).Wait();
-//}
+using (var scope = app.Services.CreateScope())
+{
+    var aspnetRunContext = scope.ServiceProvider.GetRequiredService<SimpleSaleDbContext>();
+    SimpleSaleSeed.SeedAsync(aspnetRunContext).Wait();
+}
 
 app.Run();

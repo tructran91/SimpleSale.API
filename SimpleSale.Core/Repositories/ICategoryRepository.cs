@@ -4,6 +4,6 @@ namespace SimpleSale.Core.Repositories
 {
     public interface ICategoryRepository : IRepository<Category>
     {
-        Task<Category> GetCategoryWithProductsAsync(Guid categoryId);
+        Task<List<Category>> GetCategoriesAsync();
     }
 }

@@ -1,9 +1,18 @@
-﻿using SimpleSale.Core.Entities.Catalog;
+﻿using SimpleSale.Application.DTOs.Category;
+using SimpleSale.Core.Entities.Catalog;
 
 namespace SimpleSale.Application.Interfaces
 {
     public interface ICategoryService
     {
-        Task<IEnumerable<Category>> GetCategoryList();
+        Task<List<CategoryResponseDto>> GetCategoriesAsync();
+
+        Task<Category> GetCategoryAsync(Guid id);
+
+        Task<Category> CreateAsync(Category brand);
+
+        Task UpdateAsync(Category brand);
+
+        Task DeleteAsync(Guid id);
     }
 }

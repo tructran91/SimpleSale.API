@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SimpleSale.Core.Entities.Catalog
+﻿namespace SimpleSale.Core.Entities.Catalog
 {
     public class Product : Content
     {

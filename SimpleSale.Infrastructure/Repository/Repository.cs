@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SimpleSale.Core.Entities.Catalog;
 using SimpleSale.Core.Repositories;
 using SimpleSale.Infrastructure.Data;
 using System.Linq.Expressions;
@@ -58,6 +57,11 @@ namespace SimpleSale.Infrastructure.Repository
         public async Task<T> GetByIdAsync(Guid id)
         {
             return await _dbSet.FindAsync(id);
+        }
+
+        public IQueryable<T> Query()
+        {
+            return _dbSet;
         }
 
         public async Task<T> AddAsync(T entity)

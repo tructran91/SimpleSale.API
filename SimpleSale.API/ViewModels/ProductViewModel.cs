@@ -1,4 +1,6 @@
-﻿namespace SimpleSale.API.ViewModels
+﻿using SimpleSale.API.ViewModels.Category;
+
+namespace SimpleSale.API.ViewModels
 {
     public class ProductViewModel : BaseViewModel
     {
@@ -10,6 +12,6 @@
         public short? ReorderLevel { get; set; }
         public bool Discontinued { get; set; }
         public Guid? CategoryId { get; set; }
-        public CategoryViewModel Category { get; set; }
+        public CategoryResponseViewModel Category { get; set; }
     }
 }

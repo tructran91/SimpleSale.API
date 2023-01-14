@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SimpleSale.Application.DTOs
+﻿namespace SimpleSale.Application.DTOs.Category
 {
-    public class BrandCriteriaDto
+    public class CategoryCriteriaDto
     {
         public Guid Id { get; set; }
 

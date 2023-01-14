@@ -1,23 +1,24 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSale.API.Extensions;
-using SimpleSale.API.ViewModels.Brand;
+using SimpleSale.API.ViewModels.Category;
 using SimpleSale.Application.Interfaces;
+using SimpleSale.Application.Services;
 using SimpleSale.Core.Entities.Catalog;
 
 namespace SimpleSale.API.Controllers
 {
-    [Route("api/admin/brand")]
+    [Route("api/admin/category")]
     [ApiController]
-    public class AdminBrandController : ControllerBase
+    public class AdminCategoryController : ControllerBase
     {
-        private readonly IBrandService _brandService;
-        private readonly ILogger<AdminBrandController> _logger;
+        private readonly ICategoryService _categoryService;
+        private readonly ILogger<AdminCategoryController> _logger;
         private readonly IMapper _mapper;
 
-        public AdminBrandController(IBrandService brandService, ILogger<AdminBrandController> logger, IMapper mapper)
+        public AdminCategoryController(ICategoryService categoryService, ILogger<AdminCategoryController> logger, IMapper mapper)
         {
-            _brandService = brandService;
+            _categoryService = categoryService;
             _logger = logger;
             _mapper = mapper;
         }
@@ -27,10 +28,10 @@ namespace SimpleSale.API.Controllers
         {
             try
             {
-                var brands = await _brandService.GetBrandsAsync();
-                var brandsConverted = _mapper.Map<List<BrandResponseViewModel>>(brands);
+                var categories = await _categoryService.GetCategoriesAsync();
+                var categoriesConverted = _mapper.Map<List<CategoryResponseViewModel>>(categories);
 
-                return Ok(brandsConverted);
+                return Ok(categoriesConverted);
             }
             catch (Exception ex)
             {
@@ -44,15 +45,15 @@ namespace SimpleSale.API.Controllers
         {
             try
             {
-                var brand = await _brandService.GetBrandAsync(id);
-                if (brand == null)
+                var category = await _categoryService.GetCategoryAsync(id);
+                if (category == null)
                 {
                     return NotFound();
                 }
 
-                var brandConverted = _mapper.Map<BrandResponseViewModel>(brand);
+                var categoryConverted = _mapper.Map<CategoryResponseViewModel>(category);
 
-                return Ok(brandConverted);
+                return Ok(categoryConverted);
             }
             catch (Exception ex)
             {
@@ -62,7 +63,7 @@ namespace SimpleSale.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] BrandRequestViewModel model)
+        public async Task<IActionResult> Post([FromBody] CategoryRequestViewModel model)
         {
             try
             {
@@ -71,12 +72,12 @@ namespace SimpleSale.API.Controllers
                     return BadRequest("Model is null");
                 }
 
-                var brand = _mapper.Map<Brand>(model);
-                brand.Slug = brand.Name.Slugify();
+                var category = _mapper.Map<Category>(model);
+                category.Slug = category.Name.Slugify();
 
-                var brandCreated = await _brandService.CreateAsync(brand);
+                var categoryCreated = await _categoryService.CreateAsync(category);
 
-                return Ok(brandCreated.Id);
+                return Ok(categoryCreated.Id);
             }
             catch (Exception ex)
             {
@@ -86,7 +87,7 @@ namespace SimpleSale.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, [FromBody] BrandRequestViewModel model)
+        public async Task<IActionResult> Put(Guid id, [FromBody] CategoryRequestViewModel model)
         {
             try
             {
@@ -95,17 +96,16 @@ namespace SimpleSale.API.Controllers
                     return BadRequest("Model is null");
                 }
 
-                var brand = await _brandService.GetBrandAsync(Guid.Parse(model.Id));
-                if (brand == null)
+                var category = await _categoryService.GetCategoryAsync(Guid.Parse(model.Id));
+                if (category == null)
                 {
                     return NotFound();
                 }
-                brand.Name= model.Name;
-                brand.Slug = model.Name.Slugify();
-                brand.IsPublished = model.IsPublished;
-                brand.LatestUpdatedOn = DateTime.UtcNow;
 
-                await _brandService.UpdateAsync(brand);
+                var mapperCategory = _mapper.Map(model, category);
+                mapperCategory.Slug = mapperCategory.Name.Slugify();
+
+                await _categoryService.UpdateAsync(mapperCategory);
 
                 return Ok();
             }
@@ -121,7 +121,7 @@ namespace SimpleSale.API.Controllers
         {
             try
             {
-                await _brandService.DeleteAsync(id);
+                await _categoryService.DeleteAsync(id);
 
                 return Ok();
             }

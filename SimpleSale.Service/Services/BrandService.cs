@@ -1,12 +1,6 @@
-﻿using SimpleSale.Application.DTOs;
-using SimpleSale.Application.Interfaces;
+﻿using SimpleSale.Application.Interfaces;
 using SimpleSale.Core.Entities.Catalog;
 using SimpleSale.Core.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimpleSale.Application.Services
 {
@@ -19,30 +13,33 @@ namespace SimpleSale.Application.Services
             _brandRepository = brandRepository;
         }
 
-        public async Task<List<Brand>> GetBrands()
+        public async Task<List<Brand>> GetBrandsAsync()
         {
             return await _brandRepository.GetAllAsync();
         }
 
-        public async Task<Brand> GetBrand(BrandCriteriaDto dto)
+        public async Task<Brand> GetBrandAsync(Guid id)
         {
-            return await _brandRepository.GetByIdAsync(dto.Id);
+            return await _brandRepository.GetByIdAsync(id);
         }
 
-        public async Task<Brand> Create(Brand brand)
+        public async Task<Brand> CreateAsync(Brand brand)
         {
             return await _brandRepository.AddAsync(brand);
         }
 
-        public async Task Update(Brand brand)
+        public async Task UpdateAsync(Brand brand)
         {
             await _brandRepository.UpdateAsync(brand);
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             var brand = await _brandRepository.GetByIdAsync(id);
-            await _brandRepository.DeleteAsync(brand);
+            if (brand != null)
+            {
+                await _brandRepository.DeleteAsync(brand);
+            }
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace SimpleSale.API.ViewModels
+namespace SimpleSale.API.ViewModels.Brand
 {
-    public class BrandViewModel
+    public class BrandRequestViewModel
     {
         public string? Id { get; set; }
 

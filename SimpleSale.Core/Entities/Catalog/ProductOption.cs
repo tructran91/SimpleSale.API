@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SimpleSale.Core.Entities.Catalog
+﻿namespace SimpleSale.Core.Entities.Catalog
 {
     public class ProductOption : EntityBase
     {

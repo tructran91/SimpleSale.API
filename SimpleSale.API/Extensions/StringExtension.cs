@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace SimpleSale.API.Extensions
 {
-    public static class StringUtility
+    public static class StringExtension
     {
         public static string Slugify(this string phrase)
         {

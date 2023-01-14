@@ -1,4 +1,5 @@
-﻿using SimpleSale.Core.Entities.Catalog;
+﻿using Microsoft.EntityFrameworkCore;
+using SimpleSale.Core.Entities.Catalog;
 using SimpleSale.Core.Repositories;
 using SimpleSale.Infrastructure.Data;
 
@@ -10,11 +11,9 @@ namespace SimpleSale.Infrastructure.Repository
         {
         }
 
-        public async Task<Category> GetCategoryWithProductsAsync(Guid categoryId)
+        public async Task<List<Category>> GetCategoriesAsync()
         {
-            //var spec = new CategoryWithProductsSpecification(categoryId);
-            //var category = (await GetAsync(spec)).FirstOrDefault();
-            return new Category();
+            return await _dbContext.Categories.ToListAsync();
         }
     }
 }
