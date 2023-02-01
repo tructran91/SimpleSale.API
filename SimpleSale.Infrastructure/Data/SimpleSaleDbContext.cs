@@ -29,18 +29,37 @@ namespace SimpleSale.Infrastructure.Data
 
         public DbSet<ProductMedia> ProductMedias { get; set; }
 
-        public DbSet<ProductOption> ProductOptions { get; set; }
+        //public DbSet<ProductOption> ProductOptions { get; set; }
 
-        public DbSet<ProductOptionValue> ProductOptionValues { get; set; }
+        //public DbSet<ProductOptionValue> ProductOptionValues { get; set; }
 
-        public DbSet<ProductPriceHistory> ProductPriceHistories { get; set; }
+        //public DbSet<ProductPriceHistory> ProductPriceHistories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
-            {
-                relationship.DeleteBehavior = DeleteBehavior.Restrict;
-            }
+            modelBuilder.Entity<ProductMedia>()
+                .HasOne(x => x.Product)
+                .WithMany(p => p.Medias)
+                .HasForeignKey(x => x.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ProductMedia>()
+                .HasOne(x => x.Media)
+                .WithMany(p => p.Products)
+                .HasForeignKey(x => x.MediaId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ProductLink>()
+                .HasOne(x => x.Product)
+                .WithMany(p => p.ProductLinks)
+                .HasForeignKey(x => x.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ProductLink>()
+                .HasOne(x => x.LinkedProduct)
+                .WithMany(p => p.LinkedProductLinks)
+                .HasForeignKey(x => x.LinkedProductId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

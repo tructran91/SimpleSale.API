@@ -12,7 +12,7 @@ using SimpleSale.Infrastructure.Data;
 namespace SimpleSale.Infrastructure.Migrations
 {
     [DbContext(typeof(SimpleSaleDbContext))]
-    [Migration("20230114143243_init")]
+    [Migration("20230129093431_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -117,14 +117,12 @@ namespace SimpleSale.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Caption")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FileName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("FileSize")
@@ -150,10 +148,7 @@ namespace SimpleSale.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<long?>("BrandId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid>("BrandId1")
+                    b.Property<Guid?>("BrandId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedOn")
@@ -200,11 +195,9 @@ namespace SimpleSale.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ShortDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sku")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Slug")
@@ -223,15 +216,12 @@ namespace SimpleSale.Infrastructure.Migrations
                     b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
-                    b.Property<bool>("StockTrackingIsEnabled")
-                        .HasColumnType("bit");
-
                     b.Property<Guid>("ThumbnailImageId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BrandId1");
+                    b.HasIndex("BrandId");
 
                     b.HasIndex("ThumbnailImageId");
 
@@ -244,17 +234,8 @@ namespace SimpleSale.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("GroupId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LatestUpdatedOn")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -273,15 +254,6 @@ namespace SimpleSale.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LatestUpdatedOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -299,15 +271,6 @@ namespace SimpleSale.Infrastructure.Migrations
 
                     b.Property<Guid>("AttributeId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LatestUpdatedOn")
-                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -334,17 +297,8 @@ namespace SimpleSale.Infrastructure.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LatestUpdatedOn")
-                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -364,35 +318,20 @@ namespace SimpleSale.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LatestUpdatedOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("LinkType")
                         .HasColumnType("int");
 
-                    b.Property<long>("LinkedProductId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid>("LinkedProductId1")
+                    b.Property<Guid>("LinkedProductId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<long>("ProductId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid>("ProductId1")
+                    b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LinkedProductId1");
+                    b.HasIndex("LinkedProductId");
 
-                    b.HasIndex("ProductId1");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("ProductLinks");
                 });
@@ -403,150 +342,29 @@ namespace SimpleSale.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LatestUpdatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("MediaId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid>("MediaId1")
+                    b.Property<Guid>("MediaId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<long>("ProductId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid>("ProductId1")
+                    b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MediaId1");
+                    b.HasIndex("MediaId");
 
-                    b.HasIndex("ProductId1");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("ProductMedias");
-                });
-
-            modelBuilder.Entity("SimpleSale.Core.Entities.Catalog.ProductOption", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LatestUpdatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductOptions");
-                });
-
-            modelBuilder.Entity("SimpleSale.Core.Entities.Catalog.ProductOptionValue", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DisplayType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LatestUpdatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("OptionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("SortIndex")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OptionId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductOptionValues");
-                });
-
-            modelBuilder.Entity("SimpleSale.Core.Entities.Catalog.ProductPriceHistory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LatestUpdatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal?>("OldPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal?>("SpecialPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime?>("SpecialPriceEnd")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("SpecialPriceStart")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductPriceHistories");
                 });
 
             modelBuilder.Entity("SimpleSale.Core.Entities.Catalog.Category", b =>
                 {
                     b.HasOne("SimpleSale.Core.Entities.Catalog.Category", "Parent")
                         .WithMany("Children")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("ParentId");
 
                     b.Navigation("Parent");
                 });
@@ -555,14 +373,12 @@ namespace SimpleSale.Infrastructure.Migrations
                 {
                     b.HasOne("SimpleSale.Core.Entities.Catalog.Brand", "Brand")
                         .WithMany()
-                        .HasForeignKey("BrandId1")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("BrandId");
 
                     b.HasOne("SimpleSale.Core.Entities.Catalog.Media", "ThumbnailImage")
                         .WithMany()
                         .HasForeignKey("ThumbnailImageId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Brand");
@@ -575,7 +391,7 @@ namespace SimpleSale.Infrastructure.Migrations
                     b.HasOne("SimpleSale.Core.Entities.Catalog.ProductAttributeGroup", "Group")
                         .WithMany("Attributes")
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Group");
@@ -586,13 +402,13 @@ namespace SimpleSale.Infrastructure.Migrations
                     b.HasOne("SimpleSale.Core.Entities.Catalog.ProductAttribute", "Attribute")
                         .WithMany()
                         .HasForeignKey("AttributeId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SimpleSale.Core.Entities.Catalog.Product", "Product")
                         .WithMany("AttributeValues")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Attribute");
@@ -605,13 +421,13 @@ namespace SimpleSale.Infrastructure.Migrations
                     b.HasOne("SimpleSale.Core.Entities.Catalog.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SimpleSale.Core.Entities.Catalog.Product", "Product")
                         .WithMany("Categories")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -622,14 +438,14 @@ namespace SimpleSale.Infrastructure.Migrations
             modelBuilder.Entity("SimpleSale.Core.Entities.Catalog.ProductLink", b =>
                 {
                     b.HasOne("SimpleSale.Core.Entities.Catalog.Product", "LinkedProduct")
-                        .WithMany()
-                        .HasForeignKey("LinkedProductId1")
+                        .WithMany("LinkedProductLinks")
+                        .HasForeignKey("LinkedProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("SimpleSale.Core.Entities.Catalog.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId1")
+                        .WithMany("ProductLinks")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -641,48 +457,18 @@ namespace SimpleSale.Infrastructure.Migrations
             modelBuilder.Entity("SimpleSale.Core.Entities.Catalog.ProductMedia", b =>
                 {
                     b.HasOne("SimpleSale.Core.Entities.Catalog.Media", "Media")
-                        .WithMany()
-                        .HasForeignKey("MediaId1")
+                        .WithMany("Products")
+                        .HasForeignKey("MediaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("SimpleSale.Core.Entities.Catalog.Product", "Product")
                         .WithMany("Medias")
-                        .HasForeignKey("ProductId1")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Media");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("SimpleSale.Core.Entities.Catalog.ProductOptionValue", b =>
-                {
-                    b.HasOne("SimpleSale.Core.Entities.Catalog.ProductOption", "Option")
-                        .WithMany()
-                        .HasForeignKey("OptionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SimpleSale.Core.Entities.Catalog.Product", "Product")
-                        .WithMany("OptionValues")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Option");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("SimpleSale.Core.Entities.Catalog.ProductPriceHistory", b =>
-                {
-                    b.HasOne("SimpleSale.Core.Entities.Catalog.Product", "Product")
-                        .WithMany("PriceHistories")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
 
                     b.Navigation("Product");
                 });
@@ -692,17 +478,22 @@ namespace SimpleSale.Infrastructure.Migrations
                     b.Navigation("Children");
                 });
 
+            modelBuilder.Entity("SimpleSale.Core.Entities.Catalog.Media", b =>
+                {
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("SimpleSale.Core.Entities.Catalog.Product", b =>
                 {
                     b.Navigation("AttributeValues");
 
                     b.Navigation("Categories");
 
+                    b.Navigation("LinkedProductLinks");
+
                     b.Navigation("Medias");
 
-                    b.Navigation("OptionValues");
-
-                    b.Navigation("PriceHistories");
+                    b.Navigation("ProductLinks");
                 });
 
             modelBuilder.Entity("SimpleSale.Core.Entities.Catalog.ProductAttributeGroup", b =>

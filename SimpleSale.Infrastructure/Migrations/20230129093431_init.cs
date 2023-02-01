@@ -54,8 +54,7 @@ namespace SimpleSale.Infrastructure.Migrations
                         name: "FK_Categories_Categories_ParentId",
                         column: x => x.ParentId,
                         principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -63,9 +62,9 @@ namespace SimpleSale.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Caption = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Caption = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FileSize = table.Column<int>(type: "int", nullable: false),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MediaType = table.Column<int>(type: "int", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LatestUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -81,10 +80,7 @@ namespace SimpleSale.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -92,26 +88,11 @@ namespace SimpleSale.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductOptions",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductOptions", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     OldPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     SpecialPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
@@ -119,13 +100,11 @@ namespace SimpleSale.Infrastructure.Migrations
                     SpecialPriceEnd = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsCallForPricing = table.Column<bool>(type: "bit", nullable: false),
                     IsAllowToOrder = table.Column<bool>(type: "bit", nullable: false),
-                    StockTrackingIsEnabled = table.Column<bool>(type: "bit", nullable: false),
                     StockQuantity = table.Column<int>(type: "int", nullable: false),
-                    Sku = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Sku = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DisplayOrder = table.Column<int>(type: "int", nullable: false),
+                    BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ThumbnailImageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BrandId = table.Column<long>(type: "bigint", nullable: true),
-                    BrandId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LatestUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -141,17 +120,16 @@ namespace SimpleSale.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Brands_BrandId1",
-                        column: x => x.BrandId1,
+                        name: "FK_Products_Brands_BrandId",
+                        column: x => x.BrandId,
                         principalTable: "Brands",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Products_Medias_ThumbnailImageId",
                         column: x => x.ThumbnailImageId,
                         principalTable: "Medias",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -159,11 +137,8 @@ namespace SimpleSale.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -173,7 +148,7 @@ namespace SimpleSale.Infrastructure.Migrations
                         column: x => x.GroupId,
                         principalTable: "ProductAttributeGroups",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -181,12 +156,9 @@ namespace SimpleSale.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    DisplayOrder = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -196,13 +168,13 @@ namespace SimpleSale.Infrastructure.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ProductCategories_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -210,27 +182,22 @@ namespace SimpleSale.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductId = table.Column<long>(type: "bigint", nullable: false),
-                    ProductId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LinkedProductId = table.Column<long>(type: "bigint", nullable: false),
-                    LinkedProductId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LinkType = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LinkedProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LinkType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductLinks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductLinks_Products_LinkedProductId1",
-                        column: x => x.LinkedProductId1,
+                        name: "FK_ProductLinks_Products_LinkedProductId",
+                        column: x => x.LinkedProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ProductLinks_Products_ProductId1",
-                        column: x => x.ProductId1,
+                        name: "FK_ProductLinks_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -241,83 +208,21 @@ namespace SimpleSale.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductId = table.Column<long>(type: "bigint", nullable: false),
-                    ProductId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MediaId = table.Column<long>(type: "bigint", nullable: false),
-                    MediaId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MediaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DisplayOrder = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductMedias", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductMedias_Medias_MediaId1",
-                        column: x => x.MediaId1,
+                        name: "FK_ProductMedias_Medias_MediaId",
+                        column: x => x.MediaId,
                         principalTable: "Medias",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ProductMedias_Products_ProductId1",
-                        column: x => x.ProductId1,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductOptionValues",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OptionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DisplayType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SortIndex = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductOptionValues", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProductOptionValues_ProductOptions_OptionId",
-                        column: x => x.OptionId,
-                        principalTable: "ProductOptions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ProductOptionValues_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductPriceHistories",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    OldPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    SpecialPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    SpecialPriceStart = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SpecialPriceEnd = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductPriceHistories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProductPriceHistories_Products_ProductId",
+                        name: "FK_ProductMedias_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -331,10 +236,7 @@ namespace SimpleSale.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AttributeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -344,13 +246,13 @@ namespace SimpleSale.Infrastructure.Migrations
                         column: x => x.AttributeId,
                         principalTable: "ProductAttributes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ProductAttributeValues_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -384,44 +286,29 @@ namespace SimpleSale.Infrastructure.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductLinks_LinkedProductId1",
+                name: "IX_ProductLinks_LinkedProductId",
                 table: "ProductLinks",
-                column: "LinkedProductId1");
+                column: "LinkedProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductLinks_ProductId1",
+                name: "IX_ProductLinks_ProductId",
                 table: "ProductLinks",
-                column: "ProductId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductMedias_MediaId1",
-                table: "ProductMedias",
-                column: "MediaId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductMedias_ProductId1",
-                table: "ProductMedias",
-                column: "ProductId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductOptionValues_OptionId",
-                table: "ProductOptionValues",
-                column: "OptionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductOptionValues_ProductId",
-                table: "ProductOptionValues",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductPriceHistories_ProductId",
-                table: "ProductPriceHistories",
+                name: "IX_ProductMedias_MediaId",
+                table: "ProductMedias",
+                column: "MediaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductMedias_ProductId",
+                table: "ProductMedias",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_BrandId1",
+                name: "IX_Products_BrandId",
                 table: "Products",
-                column: "BrandId1");
+                column: "BrandId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_ThumbnailImageId",
@@ -445,19 +332,10 @@ namespace SimpleSale.Infrastructure.Migrations
                 name: "ProductMedias");
 
             migrationBuilder.DropTable(
-                name: "ProductOptionValues");
-
-            migrationBuilder.DropTable(
-                name: "ProductPriceHistories");
-
-            migrationBuilder.DropTable(
                 name: "ProductAttributes");
 
             migrationBuilder.DropTable(
                 name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "ProductOptions");
 
             migrationBuilder.DropTable(
                 name: "Products");

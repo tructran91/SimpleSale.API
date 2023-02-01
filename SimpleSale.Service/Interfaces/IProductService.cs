@@ -4,12 +4,10 @@ namespace SimpleSale.Application.Interfaces
 {
     public interface IProductService
     {
-        Task<IEnumerable<Product>> GetProductList();
-        Task<Product> GetProductById(Guid productId);
-        Task<IEnumerable<Product>> GetProductByName(string productName);
-        Task<IEnumerable<Product>> GetProductByCategory(Guid categoryId);
-        Task<Product> Create(Product product);
-        Task Update(Product product);
-        Task Delete(Product product);
+        Task<IEnumerable<Product>> GetProductsAsync();
+        Task<Product> GetProductAsync(Guid productId);
+        Task<Product> CreateAsync(Product product);
+        Task UpdateAsync(Product product);
+        Task DeleteAsync(Product product);
     }
 }

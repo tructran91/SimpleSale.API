@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.Extensions.Logging;
 using SimpleSale.API.Extensions;
 using SimpleSale.API.Filters;
+using SimpleSale.API.Middlewares;
 using SimpleSale.Infrastructure.Data;
 using System.Net;
 
@@ -16,6 +18,9 @@ builder.Services.ConfigureCorsAllowAny();
 builder.Services.AddScoped<ModelValidationAttribute>();
 
 var app = builder.Build();
+
+var loggerFactory = app.Services.GetService<ILoggerFactory>();
+loggerFactory.AddFile(builder.Configuration["Logging:LogFilePath"].ToString());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -50,10 +55,6 @@ app.UseExceptionHandler(config =>
     });
 });
 
-using (var scope = app.Services.CreateScope())
-{
-    var aspnetRunContext = scope.ServiceProvider.GetRequiredService<SimpleSaleDbContext>();
-    SimpleSaleSeed.SeedAsync(aspnetRunContext).Wait();
-}
+app.UseMiddleware<PerformanceLogMiddleware>();
 
 app.Run();

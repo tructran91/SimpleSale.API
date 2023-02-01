@@ -1,12 +1,14 @@
 ﻿namespace SimpleSale.Core.Entities.Catalog
 {
-    public class ProductMedia : EntityBase
+    public class ProductMedia
     {
-        public long ProductId { get; set; }
+        public Guid Id { get; set; }
+
+        public Guid ProductId { get; set; }
 
         public Product Product { get; set; }
 
-        public long MediaId { get; set; }
+        public Guid MediaId { get; set; }
 
         public Media Media { get; set; }
 

@@ -1,17 +1,23 @@
-﻿using SimpleSale.API.ViewModels.Category;
-
-namespace SimpleSale.API.ViewModels
+﻿namespace SimpleSale.API.ViewModels.Product
 {
-    public class ProductViewModel : BaseViewModel
+    public class ProductResponseViewModel : ContentViewModel
     {
+        public Guid Id { get; set; }
+
         public string ProductName { get; set; }
+
         public string QuantityPerUnit { get; set; }
+
         public decimal? UnitPrice { get; set; }
+
         public short? UnitsInStock { get; set; }
+
         public short? UnitsOnOrder { get; set; }
+
         public short? ReorderLevel { get; set; }
+
         public bool Discontinued { get; set; }
+
         public Guid? CategoryId { get; set; }
-        public CategoryResponseViewModel Category { get; set; }
     }
 }

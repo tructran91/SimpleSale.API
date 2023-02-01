@@ -17,27 +17,17 @@ namespace SimpleSale.Application.Services
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<IEnumerable<Product>> GetProductList()
+        public async Task<IEnumerable<Product>> GetProductsAsync()
         {
-            return await _productRepository.GetProductListAsync();
+            return await _productRepository.GetAllAsync();
         }
 
-        public async Task<Product> GetProductById(Guid productId)
+        public async Task<Product> GetProductAsync(Guid productId)
         {
             return await _productRepository.GetByIdAsync(productId);
         }
 
-        public async Task<IEnumerable<Product>> GetProductByName(string productName)
-        {
-            return await _productRepository.GetProductByNameAsync(productName);
-        }
-
-        public async Task<IEnumerable<Product>> GetProductByCategory(Guid categoryId)
-        {
-            return await _productRepository.GetProductByCategoryAsync(categoryId);
-        }
-
-        public async Task<Product> Create(Product product)
+        public async Task<Product> CreateAsync(Product product)
         {
             await ValidateProductIfExist(product);
 
@@ -47,7 +37,7 @@ namespace SimpleSale.Application.Services
             return newEntity;
         }
 
-        public async Task Update(Product product)
+        public async Task UpdateAsync(Product product)
         {
             ValidateProductIfNotExist(product);
 
@@ -59,7 +49,7 @@ namespace SimpleSale.Application.Services
             _logger.LogInformation($"Entity successfully updated - AspnetRunAppService");
         }
 
-        public async Task Delete(Product product)
+        public async Task DeleteAsync(Product product)
         {
             ValidateProductIfNotExist(product);
             var deletedProduct = await _productRepository.GetByIdAsync(product.Id);

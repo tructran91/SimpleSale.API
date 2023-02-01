@@ -1,8 +1,8 @@
 ﻿namespace SimpleSale.Core.Entities.Catalog
 {
-    public class ProductCategory : EntityBase
+    public class ProductCategory
     {
-        public int DisplayOrder { get; set; }
+        public Guid Id { get; set; }
 
         public Guid CategoryId { get; set; }
 
@@ -11,5 +11,7 @@
         public Category Category { get; set; }
 
         public Product Product { get; set; }
+
+        public int DisplayOrder { get; set; }
     }
 }

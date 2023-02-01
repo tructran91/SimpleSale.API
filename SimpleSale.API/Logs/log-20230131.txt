@@ -1,0 +1,53 @@
+2023-01-31T21:52:16.8722684+07:00 0HMO3JAQFMI09:00000005 [WRN] No store type was specified for the decimal property '"OldPrice"' on entity type '"Product"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. (fff75eb8)
+2023-01-31T21:52:16.8885191+07:00 0HMO3JAQFMI09:00000005 [WRN] No store type was specified for the decimal property '"Price"' on entity type '"Product"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. (fff75eb8)
+2023-01-31T21:52:16.8946818+07:00 0HMO3JAQFMI09:00000005 [WRN] No store type was specified for the decimal property '"SpecialPrice"' on entity type '"Product"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. (fff75eb8)
+2023-01-31T21:52:24.2326067+07:00 0HMO3JAQFMI09:00000005 [WRN] Long running request: "GET" - "/api/admin/brand" (5105 milliseconds) (d2fd7224)
+2023-01-31T21:55:24.1595018+07:00 0HMO3JCH14183:00000005 [WRN] No store type was specified for the decimal property '"OldPrice"' on entity type '"Product"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. (fff75eb8)
+2023-01-31T21:55:24.1760695+07:00 0HMO3JCH14183:00000005 [WRN] No store type was specified for the decimal property '"Price"' on entity type '"Product"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. (fff75eb8)
+2023-01-31T21:55:24.1820425+07:00 0HMO3JCH14183:00000005 [WRN] No store type was specified for the decimal property '"SpecialPrice"' on entity type '"Product"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. (fff75eb8)
+2023-01-31T21:55:26.1705833+07:00 0HMO3JCH14183:00000005 [WRN] Long running request: "GET" - "/api/admin/brand" (3648 milliseconds) (d2fd7224)
+2023-01-31T21:56:25.0729550+07:00 0HMO3JCH14183:00000006 [WRN] Long running request: "GET" - "/api/admin/brand/ee00dde2-9e30-475d-8a9a-3dfe6173fb30" (4729 milliseconds) (d2fd7224)
+2023-01-31T21:57:24.4059881+07:00 0HMO3JCH14183:00000007 [ERR] Something went wrong inside the Post action: AutoMapper.AutoMapperMappingException: Error mapping types.
+
+Mapping types:
+BrandRequestViewModel -> Brand
+SimpleSale.API.ViewModels.Brand.BrandRequestViewModel -> SimpleSale.Core.Entities.Catalog.Brand
+
+Type Map configuration:
+BrandRequestViewModel -> Brand
+SimpleSale.API.ViewModels.Brand.BrandRequestViewModel -> SimpleSale.Core.Entities.Catalog.Brand
+
+Destination Member:
+Id
+
+ ---> System.FormatException: Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).
+   at System.Guid.GuidResult.SetFailure(Boolean overflow, String failureMessageID)
+   at System.Guid.TryParseExactN(ReadOnlySpan`1 guidString, GuidResult& result)
+   at System.Guid.TryParseGuid(ReadOnlySpan`1 guidString, GuidResult& result)
+   at lambda_method89(Closure, Object, Brand, ResolutionContext)
+   --- End of inner exception stack trace ---
+   at lambda_method89(Closure, Object, Brand, ResolutionContext)
+   at SimpleSale.API.Controllers.AdminBrandController.Post(BrandRequestViewModel model) in C:\Users\Truc\Documents\SimpleSale\SimpleSale.API\SimpleSale.API\Controllers\AdminBrandController.cs:line 74 (d196db43)
+2023-01-31T21:57:32.5173447+07:00 0HMO3JCH14183:00000007 [WRN] Long running request: "POST" - "/api/admin/brand" (3597 milliseconds) (d2fd7224)
+2023-01-31T22:00:04.4401826+07:00 0HMO3JCH14183:00000008 [ERR] Something went wrong inside the Post action: AutoMapper.AutoMapperMappingException: Error mapping types.
+
+Mapping types:
+BrandRequestViewModel -> Brand
+SimpleSale.API.ViewModels.Brand.BrandRequestViewModel -> SimpleSale.Core.Entities.Catalog.Brand
+
+Type Map configuration:
+BrandRequestViewModel -> Brand
+SimpleSale.API.ViewModels.Brand.BrandRequestViewModel -> SimpleSale.Core.Entities.Catalog.Brand
+
+Destination Member:
+Id
+
+ ---> System.FormatException: Guid should contain 32 digits with 4 dashes (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).
+   at System.Guid.GuidResult.SetFailure(Boolean overflow, String failureMessageID)
+   at System.Guid.TryParseExactN(ReadOnlySpan`1 guidString, GuidResult& result)
+   at System.Guid.TryParseGuid(ReadOnlySpan`1 guidString, GuidResult& result)
+   at lambda_method89(Closure, Object, Brand, ResolutionContext)
+   --- End of inner exception stack trace ---
+   at lambda_method89(Closure, Object, Brand, ResolutionContext)
+   at SimpleSale.API.Controllers.AdminBrandController.Post(BrandRequestViewModel model) in C:\Users\Truc\Documents\SimpleSale\SimpleSale.API\SimpleSale.API\Controllers\AdminBrandController.cs:line 74 (d196db43)
+2023-01-31T22:00:06.0946438+07:00 0HMO3JCH14183:00000008 [WRN] Long running request: "POST" - "/api/admin/brand" (27835 milliseconds) (d2fd7224)

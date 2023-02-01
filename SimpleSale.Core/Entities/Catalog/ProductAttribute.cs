@@ -1,11 +1,13 @@
 ﻿namespace SimpleSale.Core.Entities.Catalog
 {
-    public class ProductAttribute : EntityBase
+    public class ProductAttribute
     {
-        public string Name { get; set; }
+        public Guid Id { get; set; }
 
         public Guid GroupId { get; set; }
 
         public ProductAttributeGroup Group { get; set; }
+
+        public string Name { get; set; }
     }
 }
