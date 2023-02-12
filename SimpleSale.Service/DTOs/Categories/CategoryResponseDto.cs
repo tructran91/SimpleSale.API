@@ -1,4 +1,4 @@
-﻿namespace SimpleSale.Application.DTOs.Category
+﻿namespace SimpleSale.Application.DTOs.Categories
 {
     public class CategoryResponseDto : ContentDto
     {

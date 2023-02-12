@@ -1,4 +1,4 @@
-﻿using SimpleSale.Application.DTOs.Category;
+﻿using SimpleSale.Application.DTOs.Categories;
 using SimpleSale.Core.Entities.Catalog;
 
 namespace SimpleSale.Application.Interfaces

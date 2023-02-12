@@ -1,4 +1,7 @@
-﻿using SimpleSale.Application.Interfaces;
+﻿using SimpleSale.Application.Common;
+using SimpleSale.Application.DTOs;
+using SimpleSale.Application.Interfaces;
+using SimpleSale.Core.DTOs.Products;
 using SimpleSale.Core.Entities.Catalog;
 using SimpleSale.Core.Interfaces;
 using SimpleSale.Core.Repositories;
@@ -17,9 +20,11 @@ namespace SimpleSale.Application.Services
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAsync()
+        public async Task<IEnumerable<Product>> GetProductsAsync(ProductCriteriaDto criteria)
         {
-            return await _productRepository.GetAllAsync();
+            var a = await _productRepository.GetProductsAsync(criteria);
+            var b = new PaginatedData<Product>(a, 2, 1, 1);
+            return a;
         }
 
         public async Task<Product> GetProductAsync(Guid productId)

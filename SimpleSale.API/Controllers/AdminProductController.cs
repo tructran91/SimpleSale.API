@@ -5,6 +5,7 @@ using SimpleSale.API.ViewModels.Category;
 using SimpleSale.API.ViewModels.Product;
 using SimpleSale.Application.Interfaces;
 using SimpleSale.Application.Services;
+using SimpleSale.Core.DTOs.Products;
 using SimpleSale.Core.Entities.Catalog;
 
 namespace SimpleSale.API.Controllers
@@ -24,12 +25,12 @@ namespace SimpleSale.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpPost("query")]
+        public async Task<IActionResult> Query([FromBody] ProductCriteriaDto criteria)
         {
             try
             {
-                var products = await _productService.GetProductsAsync();
+                var products = await _productService.GetProductsAsync(criteria);
                 var productsConverted = _mapper.Map<List<ProductResponseViewModel>>(products);
 
                 return Ok(productsConverted);
