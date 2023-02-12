@@ -5,7 +5,7 @@ using SimpleSale.Core.Interfaces;
 using SimpleSale.Core.Repositories;
 using SimpleSale.Infrastructure.Data;
 using SimpleSale.Infrastructure.Logging;
-using SimpleSale.Infrastructure.Repository;
+using SimpleSale.Infrastructure.Repositories;
 
 namespace SimpleSale.API.Extensions
 {
