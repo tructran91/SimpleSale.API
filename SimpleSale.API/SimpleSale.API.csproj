@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SimpleSale.Infrastructure\SimpleSale.Infrastructure.csproj" />
-    <ProjectReference Include="..\SimpleSale.Service\SimpleSale.Application.csproj" />
+    <ProjectReference Include="..\SimpleSale.Application\SimpleSale.Application.csproj" />
   </ItemGroup>
 
 </Project>
