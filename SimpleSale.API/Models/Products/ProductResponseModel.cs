@@ -1,10 +1,16 @@
-﻿namespace SimpleSale.API.ViewModels.Product
+﻿namespace SimpleSale.API.Models.Products
 {
-    public class ProductResponseViewModel : ContentViewModel
+    public class ProductResponseModel : SEOContentViewModel
     {
         public Guid Id { get; set; }
 
-        public string ProductName { get; set; }
+        public string Name { get; set; }
+
+        public string? Slug { get; set; }
+
+        public string? Description { get; set; }
+
+        public bool IsPublished { get; set; }
 
         public string QuantityPerUnit { get; set; }
 

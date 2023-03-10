@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.Extensions.Logging;
 using SimpleSale.API.Extensions;
 using SimpleSale.API.Filters;
 using SimpleSale.API.Middlewares;
-using SimpleSale.Infrastructure.Data;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);

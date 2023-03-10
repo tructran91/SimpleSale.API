@@ -59,8 +59,12 @@ namespace SimpleSale.Infrastructure.Repositories
             return await _dbSet.FindAsync(id);
         }
 
-        public IQueryable<T> Query()
+        public IQueryable<T> Query(bool isNoTracking = true)
         {
+            if (isNoTracking)
+            {
+                return _dbSet.AsNoTracking();
+            }
             return _dbSet;
         }
 

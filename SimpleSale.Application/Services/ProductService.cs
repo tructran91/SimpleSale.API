@@ -1,7 +1,6 @@
 ﻿using SimpleSale.Application.Common;
-using SimpleSale.Application.DTOs;
+using SimpleSale.Application.DTOs.Products;
 using SimpleSale.Application.Interfaces;
-using SimpleSale.Core.DTOs.Products;
 using SimpleSale.Core.Entities.Catalog;
 using SimpleSale.Core.Interfaces;
 using SimpleSale.Core.Repositories;
@@ -20,11 +19,31 @@ namespace SimpleSale.Application.Services
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAsync(ProductCriteriaDto criteria)
+        public async Task<IEnumerable<Product>> QueryProductsAsync(ProductCriteriaDto criteria)
         {
-            var a = await _productRepository.GetProductsAsync(criteria);
-            var b = new PaginatedData<Product>(a, 2, 1, 1);
-            return a;
+            //var query = _productRepository.Query();
+
+            //if (!string.IsNullOrEmpty(criteria.SearchKeyword))
+            //{
+            //    query = query.Where(t => t.Name.ToLower().Contains(criteria.SearchKeyword, StringComparison.OrdinalIgnoreCase));
+            //}
+
+            //int totalRecord = await query.CountAsync();
+
+            //if (!string.IsNullOrEmpty(criteria.SortColumn))
+            //{
+            //    query = query.OrderBy(t => t.Name);
+            //}
+
+            //var result = await query.Skip((criteria.PageNumber - 1) * criteria.PageSize)
+            //    .Take(criteria.PageSize)
+            //    .ToListAsync();
+
+            //var a = await _productRepository.GetProductsAsync(criteria);
+            //var b = new PaginatedData<Product>(a, 2, 1, 1);
+            //return a;
+
+            return null;
         }
 
         public async Task<Product> GetProductAsync(Guid productId)

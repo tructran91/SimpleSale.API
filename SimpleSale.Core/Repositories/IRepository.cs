@@ -19,7 +19,7 @@ namespace SimpleSale.Core.Repositories
                                         bool disableTracking = true);
         Task<T> GetByIdAsync(Guid id);
 
-        IQueryable<T> Query();
+        IQueryable<T> Query(bool isNoTracking = true);
 
         Task<T> AddAsync(T entity);
 

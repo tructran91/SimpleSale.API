@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SimpleSale.Application;
 using SimpleSale.Application.Interfaces;
 using SimpleSale.Application.Services;
 using SimpleSale.Core.Interfaces;
@@ -49,7 +50,8 @@ namespace SimpleSale.API.Extensions
             builder.Services.AddScoped<IBrandService, BrandService>();
 
             // Add Web Layer
-            builder.Services.AddAutoMapper(typeof(MappingProfiles));
+            builder.Services.AddAutoMapper(typeof(ModelMappingProfiles));
+            builder.Services.AddAutoMapper(typeof(DtoMappingProfile));
         }
     }
 }

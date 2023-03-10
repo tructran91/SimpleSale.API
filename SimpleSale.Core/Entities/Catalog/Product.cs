@@ -1,7 +1,15 @@
 ﻿namespace SimpleSale.Core.Entities.Catalog
 {
-    public class Product : Content
+    public class Product : SEOContent
     {
+        public string Name { get; set; }
+
+        public string Slug { get; set; }
+
+        public string? Description { get; set; }
+
+        public bool IsPublished { get; set; }
+
         public string? ShortDescription { get; set; }
 
         public decimal Price { get; set; }

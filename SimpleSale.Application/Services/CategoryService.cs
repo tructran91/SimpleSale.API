@@ -1,7 +1,10 @@
-﻿using SimpleSale.Application.DTOs.Categories;
+﻿using AutoMapper;
+using SimpleSale.Application.DTOs.Brands;
+using SimpleSale.Application.DTOs.Categories;
+using SimpleSale.Application.Exceptions;
+using SimpleSale.Application.Extensions;
 using SimpleSale.Application.Interfaces;
 using SimpleSale.Core.Entities.Catalog;
-using SimpleSale.Core.Interfaces;
 using SimpleSale.Core.Repositories;
 
 namespace SimpleSale.Application.Services
@@ -9,24 +12,27 @@ namespace SimpleSale.Application.Services
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IMapper _mapper;
 
-        public CategoryService(ICategoryRepository categoryRepository)
+        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
         {
             _categoryRepository = categoryRepository;
+            _mapper = mapper;
         }
 
-        public async Task<List<CategoryResponseDto>> GetCategoriesAsync()
+        public async Task<List<CategoryDto>> GetCategoriesAsync()
         {
             var categories = await _categoryRepository.GetCategoriesAsync();
-            var categoriesDto = new List<CategoryResponseDto>();
+            var categoriesDto = new List<CategoryDto>();
 
             foreach (var category in categories)
             {
-                var categoryDto = new CategoryResponseDto
+                var categoryDto = new CategoryDto
                 {
                     Id = category.Id,
                     Name = category.Name,
                     DisplayName = category.Name,
+                    Slug = category.Slug,
                     MetaTitle = category.MetaTitle,
                     MetaKeywords = category.MetaKeywords,
                     MetaDescription = category.MetaDescription,
@@ -34,7 +40,7 @@ namespace SimpleSale.Application.Services
                     IncludeInMenu = category.IncludeInMenu,
                     IsPublished = category.IsPublished,
                     DisplayOrder = category.DisplayOrder,
-                    ParentId= category.ParentId,
+                    ParentId = category.ParentId,
                 };
 
                 var parentCategory = category.Parent;
@@ -50,28 +56,31 @@ namespace SimpleSale.Application.Services
             return categoriesDto.OrderBy(x => x.DisplayName).ToList();
         }
 
-        public async Task<Category> GetCategoryAsync(Guid id)
+        public async Task<CategoryDto> GetCategoryAsync(Guid id)
         {
-            return await _categoryRepository.GetByIdAsync(id);
+            var category = await _categoryRepository.GetByIdAsync(id);
+            return _mapper.Map<CategoryDto>(category);
         }
 
-        public async Task<Category> CreateAsync(Category brand)
+        public async Task<CategoryDto> CreateAsync(CategoryDto categoryDto)
         {
-            return await _categoryRepository.AddAsync(brand);
+            var category = _mapper.Map<Category>(categoryDto);
+            category.Slug = category.Name.Slugify();
+
+            var createdCategory = await _categoryRepository.AddAsync(category);
+            return _mapper.Map<CategoryDto>(createdCategory);
         }
 
-        public async Task UpdateAsync(Category brand)
+        public async Task UpdateAsync(CategoryDto categoryDto)
         {
-            await _categoryRepository.UpdateAsync(brand);
-        }
+            var editCategory = await _categoryRepository.GetByIdAsync(categoryDto.Id.Value);
+            if (editCategory == null)
+                throw new NotFoundException("Category could not be loaded.");
 
-        public async Task DeleteAsync(Guid id)
-        {
-            var brand = await _categoryRepository.GetByIdAsync(id);
-            if (brand != null)
-            {
-                await _categoryRepository.DeleteAsync(brand);
-            }
+            _mapper.Map<CategoryDto, Category>(categoryDto, editCategory);
+            editCategory.Slug = editCategory.Name.Slugify();
+
+            await _categoryRepository.UpdateAsync(editCategory);
         }
     }
 }

@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSale.API.Extensions;
-using SimpleSale.API.ViewModels.Category;
+using SimpleSale.API.Models.Categories;
+using SimpleSale.Application.DTOs.Brands;
+using SimpleSale.Application.DTOs.Categories;
+using SimpleSale.Application.Exceptions;
 using SimpleSale.Application.Interfaces;
 using SimpleSale.Application.Services;
 using SimpleSale.Core.Entities.Catalog;
@@ -29,9 +32,8 @@ namespace SimpleSale.API.Controllers
             try
             {
                 var categories = await _categoryService.GetCategoriesAsync();
-                var categoriesConverted = _mapper.Map<List<CategoryResponseViewModel>>(categories);
 
-                return Ok(categoriesConverted);
+                return Ok(categories);
             }
             catch (Exception ex)
             {
@@ -51,9 +53,7 @@ namespace SimpleSale.API.Controllers
                     return NotFound();
                 }
 
-                var categoryConverted = _mapper.Map<CategoryResponseViewModel>(category);
-
-                return Ok(categoryConverted);
+                return Ok(category);
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace SimpleSale.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CategoryRequestViewModel model)
+        public async Task<IActionResult> Post([FromBody] CategoryRequestModel model)
         {
             try
             {
@@ -72,12 +72,11 @@ namespace SimpleSale.API.Controllers
                     return BadRequest("Model is null");
                 }
 
-                var category = _mapper.Map<Category>(model);
-                category.Slug = category.Name.Slugify();
+                var category = _mapper.Map<CategoryDto>(model);
 
                 var categoryCreated = await _categoryService.CreateAsync(category);
 
-                return Ok(categoryCreated.Id);
+                return Ok(categoryCreated);
             }
             catch (Exception ex)
             {
@@ -87,7 +86,7 @@ namespace SimpleSale.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, [FromBody] CategoryRequestViewModel model)
+        public async Task<IActionResult> Put(Guid id, [FromBody] CategoryRequestModel model)
         {
             try
             {
@@ -96,38 +95,20 @@ namespace SimpleSale.API.Controllers
                     return BadRequest("Model is null");
                 }
 
-                var category = await _categoryService.GetCategoryAsync(Guid.Parse(model.Id));
-                if (category == null)
-                {
-                    return NotFound();
-                }
+                var category = _mapper.Map<CategoryDto>(model);
 
-                var mapperCategory = _mapper.Map(model, category);
-                mapperCategory.Slug = mapperCategory.Name.Slugify();
-
-                await _categoryService.UpdateAsync(mapperCategory);
+                await _categoryService.UpdateAsync(category);
 
                 return Ok();
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogError($"{ex}");
+                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Something went wrong inside the Put action: {ex}");
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
-            }
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            try
-            {
-                await _categoryService.DeleteAsync(id);
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Something went wrong inside the Delete action: {ex}");
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
             }
         }

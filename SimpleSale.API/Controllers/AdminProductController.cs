@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSale.API.Extensions;
-using SimpleSale.API.ViewModels.Category;
-using SimpleSale.API.ViewModels.Product;
+using SimpleSale.API.Models.Products;
+using SimpleSale.Application.DTOs.Products;
 using SimpleSale.Application.Interfaces;
-using SimpleSale.Application.Services;
-using SimpleSale.Core.DTOs.Products;
 using SimpleSale.Core.Entities.Catalog;
 
 namespace SimpleSale.API.Controllers
@@ -30,10 +28,10 @@ namespace SimpleSale.API.Controllers
         {
             try
             {
-                var products = await _productService.GetProductsAsync(criteria);
-                var productsConverted = _mapper.Map<List<ProductResponseViewModel>>(products);
+                //var products = await _productService.GetProductsAsync(criteria);
+                //var productsConverted = _mapper.Map<List<ProductResponseViewModel>>(products);
 
-                return Ok(productsConverted);
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -53,7 +51,7 @@ namespace SimpleSale.API.Controllers
                     return NotFound();
                 }
 
-                var productConverted = _mapper.Map<ProductResponseViewModel>(product);
+                var productConverted = _mapper.Map<ProductResponseModel>(product);
 
                 return Ok(productConverted);
             }
@@ -65,7 +63,7 @@ namespace SimpleSale.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] ProductRequestViewModel model)
+        public async Task<IActionResult> Post([FromBody] ProductRequestModel model)
         {
             try
             {
@@ -75,7 +73,7 @@ namespace SimpleSale.API.Controllers
                 }
 
                 var product = _mapper.Map<Product>(model);
-                product.Slug = product.Name.Slugify();
+                //product.Slug = product.Name.Slugify();
 
                 var productCreated = await _productService.CreateAsync(product);
 

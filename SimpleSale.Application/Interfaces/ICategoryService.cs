@@ -5,14 +5,12 @@ namespace SimpleSale.Application.Interfaces
 {
     public interface ICategoryService
     {
-        Task<List<CategoryResponseDto>> GetCategoriesAsync();
+        Task<List<CategoryDto>> GetCategoriesAsync();
 
-        Task<Category> GetCategoryAsync(Guid id);
+        Task<CategoryDto> GetCategoryAsync(Guid id);
 
-        Task<Category> CreateAsync(Category brand);
+        Task<CategoryDto> CreateAsync(CategoryDto categoryDto);
 
-        Task UpdateAsync(Category brand);
-
-        Task DeleteAsync(Guid id);
+        Task UpdateAsync(CategoryDto categoryDto);
     }
 }

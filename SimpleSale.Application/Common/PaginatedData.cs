@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SimpleSale.Application.Common
+﻿namespace SimpleSale.Application.Common
 {
     /// <summary>
     /// https://jasonwatmore.com/post/2018/10/17/c-pure-pagination-logic-in-c-aspnet

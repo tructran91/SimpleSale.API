@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace SimpleSale.API.Middlewares
 {
@@ -25,7 +24,7 @@ namespace SimpleSale.API.Middlewares
             var duration = timer.ElapsedMilliseconds;
             var logger = _loggerFactory.CreateLogger("Performance");
 
-            if (duration > 1000)
+            if (duration > 10000)
             {
                 logger.LogWarning("Long running request: {Method} - {Path} ({duration} milliseconds)", context.Request.Method, context.Request.Path, duration);
             }
