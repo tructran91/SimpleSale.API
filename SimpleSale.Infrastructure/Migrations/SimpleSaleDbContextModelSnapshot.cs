@@ -213,7 +213,7 @@ namespace SimpleSale.Infrastructure.Migrations
                     b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ThumbnailImageId")
+                    b.Property<Guid?>("ThumbnailImageId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -374,9 +374,7 @@ namespace SimpleSale.Infrastructure.Migrations
 
                     b.HasOne("SimpleSale.Core.Entities.Catalog.Media", "ThumbnailImage")
                         .WithMany()
-                        .HasForeignKey("ThumbnailImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ThumbnailImageId");
 
                     b.Navigation("Brand");
 

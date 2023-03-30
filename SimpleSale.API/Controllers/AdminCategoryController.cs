@@ -74,7 +74,7 @@ namespace SimpleSale.API.Controllers
 
                 var category = _mapper.Map<CategoryDto>(model);
 
-                var categoryCreated = await _categoryService.CreateAsync(category);
+                var categoryCreated = await _categoryService.CreateCategoryAsync(category);
 
                 return Ok(categoryCreated);
             }
@@ -97,7 +97,7 @@ namespace SimpleSale.API.Controllers
 
                 var category = _mapper.Map<CategoryDto>(model);
 
-                await _categoryService.UpdateAsync(category);
+                await _categoryService.UpdateCategoryAsync(category);
 
                 return Ok();
             }

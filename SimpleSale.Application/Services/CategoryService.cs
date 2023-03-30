@@ -62,7 +62,7 @@ namespace SimpleSale.Application.Services
             return _mapper.Map<CategoryDto>(category);
         }
 
-        public async Task<CategoryDto> CreateAsync(CategoryDto categoryDto)
+        public async Task<CategoryDto> CreateCategoryAsync(CategoryDto categoryDto)
         {
             var category = _mapper.Map<Category>(categoryDto);
             category.Slug = category.Name.Slugify();
@@ -71,11 +71,11 @@ namespace SimpleSale.Application.Services
             return _mapper.Map<CategoryDto>(createdCategory);
         }
 
-        public async Task UpdateAsync(CategoryDto categoryDto)
+        public async Task UpdateCategoryAsync(CategoryDto categoryDto)
         {
             var editCategory = await _categoryRepository.GetByIdAsync(categoryDto.Id.Value);
             if (editCategory == null)
-                throw new NotFoundException("Category could not be loaded.");
+                throw new NotFoundException();
 
             _mapper.Map<CategoryDto, Category>(categoryDto, editCategory);
             editCategory.Slug = editCategory.Name.Slugify();

@@ -1,8 +1,14 @@
-﻿namespace SimpleSale.API.Models.Products
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SimpleSale.Application.DTOs.Products
 {
-    public class ProductRequestModel : SEOContentViewModel
+    public class ProductDto : SEOContentDto
     {
-        public string? Id { get; set; }
+        public Guid? Id { get; set; }
 
         public string Name { get; set; }
 
@@ -14,7 +20,7 @@
 
         public string? ShortDescription { get; set; }
 
-        public decimal? Price { get; set; } = 0;
+        public decimal Price { get; set; } = 0;
 
         public decimal? OldPrice { get; set; }
 

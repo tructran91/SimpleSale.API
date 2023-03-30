@@ -12,7 +12,7 @@
 
         public string? ShortDescription { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal Price { get; set; } = 0;
 
         public decimal? OldPrice { get; set; }
 
@@ -32,11 +32,11 @@
 
         public int DisplayOrder { get; set; }
 
-        public Guid? BrandId { get; set; }
+        public Guid BrandId { get; set; }
 
         public Brand Brand { get; set; }
 
-        public Media ThumbnailImage { get; set; }
+        public Media? ThumbnailImage { get; set; }
 
         public IList<ProductMedia> Medias { get; set; } = new List<ProductMedia>();
 

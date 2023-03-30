@@ -1,4 +1,4 @@
-﻿using SimpleSale.Core.Enum;
+﻿using SimpleSale.Core.Enums;
 
 namespace SimpleSale.Core.Entities.Catalog
 {

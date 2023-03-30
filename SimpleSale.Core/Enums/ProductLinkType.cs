@@ -1,4 +1,4 @@
-﻿namespace SimpleSale.Core.Enum
+﻿namespace SimpleSale.Core.Enums
 {
     public enum ProductLinkType
     {

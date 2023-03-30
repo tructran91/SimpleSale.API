@@ -1,5 +1,9 @@
-﻿using SimpleSale.Application.Common;
+﻿using AutoMapper;
+using SimpleSale.Application.Common;
+using SimpleSale.Application.DTOs.Categories;
 using SimpleSale.Application.DTOs.Products;
+using SimpleSale.Application.Exceptions;
+using SimpleSale.Application.Extensions;
 using SimpleSale.Application.Interfaces;
 using SimpleSale.Core.Entities.Catalog;
 using SimpleSale.Core.Interfaces;
@@ -12,11 +16,13 @@ namespace SimpleSale.Application.Services
     {
         private readonly IProductRepository _productRepository;
         private readonly IAppLogger<ProductService> _logger;
+        private readonly IMapper _mapper;
 
-        public ProductService(IProductRepository productRepository, IAppLogger<ProductService> logger)
+        public ProductService(IProductRepository productRepository, IAppLogger<ProductService> logger, IMapper mapper)
         {
-            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _productRepository = productRepository;
+            _logger = logger;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<Product>> QueryProductsAsync(ProductCriteriaDto criteria)
@@ -51,14 +57,17 @@ namespace SimpleSale.Application.Services
             return await _productRepository.GetByIdAsync(productId);
         }
 
-        public async Task<Product> CreateAsync(Product product)
+        public async Task<ProductDto> CreateProductAsync(ProductDto productDto)
         {
-            await ValidateProductIfExist(product);
+            var editCategory = await _productRepository.GetByIdAsync(productDto.Id.Value); // change get by slug
+            if (editCategory != null)
+                throw new DuplicateException();
 
-            var newEntity = await _productRepository.AddAsync(product);
-            _logger.LogInformation($"Entity successfully added - AspnetRunAppService");
+            var product = _mapper.Map<Product>(productDto);
+            product.Slug = product.Name.Slugify();
 
-            return newEntity;
+            var createdProduct = await _productRepository.AddAsync(product);
+            return _mapper.Map<ProductDto>(createdProduct);
         }
 
         public async Task UpdateAsync(Product product)

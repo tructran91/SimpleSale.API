@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleSale.Application.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace SimpleSale.Application.Exceptions
 {
     public class NotFoundException : Exception
     {
-        public NotFoundException() : base("Item not found exception") { }
+        public NotFoundException() : base(MessageConstant.NotFoundException) { }
 
         public NotFoundException(string message) : base(message) { }
 

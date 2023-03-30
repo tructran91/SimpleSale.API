@@ -6,9 +6,13 @@ namespace SimpleSale.Application.Interfaces
     public interface IProductService
     {
         Task<IEnumerable<Product>> QueryProductsAsync(ProductCriteriaDto criteria);
+
         Task<Product> GetProductAsync(Guid productId);
-        Task<Product> CreateAsync(Product product);
+
+        Task<ProductDto> CreateProductAsync(ProductDto product);
+
         Task UpdateAsync(Product product);
+
         Task DeleteAsync(Product product);
     }
 }

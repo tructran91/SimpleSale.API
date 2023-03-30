@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SimpleSale.API.Extensions;
 using SimpleSale.API.Models.Products;
 using SimpleSale.Application.DTOs.Products;
+using SimpleSale.Application.Exceptions;
 using SimpleSale.Application.Interfaces;
 using SimpleSale.Core.Entities.Catalog;
 
@@ -72,12 +73,16 @@ namespace SimpleSale.API.Controllers
                     return BadRequest("Model is null");
                 }
 
-                var product = _mapper.Map<Product>(model);
-                //product.Slug = product.Name.Slugify();
+                var product = _mapper.Map<ProductDto>(model);
 
-                var productCreated = await _productService.CreateAsync(product);
+                var productCreated = await _productService.CreateProductAsync(product);
 
-                return Ok(productCreated.Id);
+                return Ok(productCreated);
+            }
+            catch (DuplicateException ex)
+            {
+                _logger.LogError($"{ex}");
+                return StatusCode(StatusCodes.Status409Conflict, ex.Message);
             }
             catch (Exception ex)
             {

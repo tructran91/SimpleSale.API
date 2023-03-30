@@ -9,8 +9,8 @@ namespace SimpleSale.Application.Interfaces
 
         Task<CategoryDto> GetCategoryAsync(Guid id);
 
-        Task<CategoryDto> CreateAsync(CategoryDto categoryDto);
+        Task<CategoryDto> CreateCategoryAsync(CategoryDto categoryDto);
 
-        Task UpdateAsync(CategoryDto categoryDto);
+        Task UpdateCategoryAsync(CategoryDto categoryDto);
     }
 }
