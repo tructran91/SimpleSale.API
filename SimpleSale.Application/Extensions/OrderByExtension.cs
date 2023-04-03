@@ -5,22 +5,22 @@ namespace SimpleSale.Application.Extensions
 {
     public static class OrderByExtension
     {
-        public static IOrderedQueryable<T> OrderByExt<T>(this IQueryable<T> source, string property)
+        public static IOrderedQueryable<T> OrderBy<T>(this IQueryable<T> source, string property)
         {
             return ApplyOrder<T>(source, property, "OrderBy");
         }
 
-        public static IOrderedQueryable<T> OrderByDescendingExt<T>(this IQueryable<T> source, string property)
+        public static IOrderedQueryable<T> OrderByDescending<T>(this IQueryable<T> source, string property)
         {
             return ApplyOrder<T>(source, property, "OrderByDescending");
         }
 
-        public static IOrderedQueryable<T> ThenByExt<T>(this IOrderedQueryable<T> source, string property)
+        public static IOrderedQueryable<T> ThenBy<T>(this IOrderedQueryable<T> source, string property)
         {
             return ApplyOrder<T>(source, property, "ThenBy");
         }
 
-        public static IOrderedQueryable<T> ThenByDescendingExt<T>(this IOrderedQueryable<T> source, string property)
+        public static IOrderedQueryable<T> ThenByDescending<T>(this IOrderedQueryable<T> source, string property)
         {
             return ApplyOrder<T>(source, property, "ThenByDescending");
         }

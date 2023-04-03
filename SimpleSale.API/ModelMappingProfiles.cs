@@ -13,6 +13,10 @@ namespace SimpleSale.API
     {
         public ModelMappingProfiles()
         {
+            CreateMap<ProductCriteriaViewModel, ProductCriteriaDto>()
+                .ForMember(prop => prop.PageNumber, opt => opt.MapFrom(o => ((o.PageNumber == null || o.PageNumber < 0) ? 1 : o.PageNumber)))
+                .ForMember(prop => prop.PageSize, opt => opt.MapFrom(o => ((o.PageSize == null || o.PageSize < 0) ? 10 : o.PageSize)));
+
             CreateMap<BrandRequestModel, BrandDto>()
                 .ForMember(prop => prop.Id, opt => opt.MapFrom(o => (string.IsNullOrEmpty(o.Id) ? Guid.Empty : Guid.Parse(o.Id))));
 

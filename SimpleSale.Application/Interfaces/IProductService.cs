@@ -1,13 +1,14 @@
-﻿using SimpleSale.Application.DTOs.Products;
+﻿using SimpleSale.Application.Common;
+using SimpleSale.Application.DTOs.Products;
 using SimpleSale.Core.Entities.Catalog;
 
 namespace SimpleSale.Application.Interfaces
 {
     public interface IProductService
     {
-        Task<IEnumerable<Product>> QueryProductsAsync(ProductCriteriaDto criteria);
+        Task<PaginatedData<ProductDto>> QueryProductsAsync(ProductCriteriaDto criteria);
 
-        Task<Product> GetProductAsync(Guid productId);
+        Task<ProductDto> GetProductAsync(Guid productId);
 
         Task<ProductDto> CreateProductAsync(ProductDto product);
 

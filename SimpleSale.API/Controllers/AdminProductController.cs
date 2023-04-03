@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSale.API.Extensions;
 using SimpleSale.API.Models.Products;
+using SimpleSale.API.Validators;
 using SimpleSale.Application.DTOs.Products;
 using SimpleSale.Application.Exceptions;
 using SimpleSale.Application.Interfaces;
 using SimpleSale.Core.Entities.Catalog;
+using System.ComponentModel.DataAnnotations;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace SimpleSale.API.Controllers
 {
@@ -25,14 +29,20 @@ namespace SimpleSale.API.Controllers
         }
 
         [HttpPost("query")]
-        public async Task<IActionResult> Query([FromBody] ProductCriteriaDto criteria)
+        public async Task<IActionResult> Query([FromBody] ProductCriteriaViewModel criteria)
         {
             try
             {
-                //var products = await _productService.GetProductsAsync(criteria);
-                //var productsConverted = _mapper.Map<List<ProductResponseViewModel>>(products);
+                var validateResult = ModelValidator.Validate(criteria);
+                if (!validateResult.IsValid)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, validateResult.Errors.ConvertFailureToString());
+                }
 
-                return Ok();
+                var productCriteria = _mapper.Map<ProductCriteriaDto>(criteria);
+
+                var products = await _productService.QueryProductsAsync(productCriteria);
+                return Ok(products);
             }
             catch (Exception ex)
             {
@@ -52,9 +62,7 @@ namespace SimpleSale.API.Controllers
                     return NotFound();
                 }
 
-                var productConverted = _mapper.Map<ProductResponseModel>(product);
-
-                return Ok(productConverted);
+                return Ok(product);
             }
             catch (Exception ex)
             {

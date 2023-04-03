@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Diagnostics;
 using SimpleSale.API.Extensions;
-using SimpleSale.API.Filters;
 using SimpleSale.API.Middlewares;
 using System.Net;
 
@@ -13,7 +12,6 @@ builder.Services.AddControllers();
 builder.AddLayerForApp();
 builder.Services.ConfigureSwagger();
 builder.Services.ConfigureCorsAllowAny();
-builder.Services.AddScoped<ModelValidationAttribute>();
 
 var app = builder.Build();
 

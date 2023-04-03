@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SimpleSale.Application.Common;
+using SimpleSale.Application.DTOs;
 using SimpleSale.Application.DTOs.Categories;
 using SimpleSale.Application.DTOs.Products;
 using SimpleSale.Application.Exceptions;
@@ -25,42 +26,31 @@ namespace SimpleSale.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Product>> QueryProductsAsync(ProductCriteriaDto criteria)
+        public async Task<PaginatedData<ProductDto>> QueryProductsAsync(ProductCriteriaDto criteria)
         {
-            //var query = _productRepository.Query();
+            var products = _productRepository.GetAsync(t => t.Name.ToLower().Contains(criteria.SearchKeyword.ToLower()),
+                criteria.SortDirection == SortDirection.Ascending ? t => t.OrderBy(criteria.SortColumn) : t => t.OrderByDescending(criteria.SortColumn), null,
+                criteria.PageNumber, criteria.PageSize);
 
-            //if (!string.IsNullOrEmpty(criteria.SearchKeyword))
-            //{
-            //    query = query.Where(t => t.Name.ToLower().Contains(criteria.SearchKeyword, StringComparison.OrdinalIgnoreCase));
-            //}
+            var numberOfProducts = _productRepository.CountAsync(t => t.Name.ToLower().Contains(criteria.SearchKeyword.ToLower()));
 
-            //int totalRecord = await query.CountAsync();
+            Task.WhenAll(products, numberOfProducts);
 
-            //if (!string.IsNullOrEmpty(criteria.SortColumn))
-            //{
-            //    query = query.OrderBy(t => t.Name);
-            //}
+            var productsDto = _mapper.Map<IEnumerable<ProductDto>>(products.Result);
 
-            //var result = await query.Skip((criteria.PageNumber - 1) * criteria.PageSize)
-            //    .Take(criteria.PageSize)
-            //    .ToListAsync();
-
-            //var a = await _productRepository.GetProductsAsync(criteria);
-            //var b = new PaginatedData<Product>(a, 2, 1, 1);
-            //return a;
-
-            return null;
+            return new PaginatedData<ProductDto>(productsDto, numberOfProducts.Result);
         }
 
-        public async Task<Product> GetProductAsync(Guid productId)
+        public async Task<ProductDto> GetProductAsync(Guid productId)
         {
-            return await _productRepository.GetByIdAsync(productId);
+            var product = await _productRepository.GetByIdAsync(productId);
+            return _mapper.Map<ProductDto>(product);
         }
 
         public async Task<ProductDto> CreateProductAsync(ProductDto productDto)
         {
-            var editCategory = await _productRepository.GetByIdAsync(productDto.Id.Value); // change get by slug
-            if (editCategory != null)
+            var editedProduct = await _productRepository.GetAsync(t => t.Slug == productDto.Name.Slugify());
+            if (editedProduct != null)
                 throw new DuplicateException();
 
             var product = _mapper.Map<Product>(productDto);
